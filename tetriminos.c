@@ -6,12 +6,21 @@
 /*   By: gbruscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/19 17:06:01 by gbruscan          #+#    #+#             */
-/*   Updated: 2015/12/19 19:16:05 by gbruscan         ###   ########.fr       */
+/*   Updated: 2015/12/20 11:46:14 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "fillit.h"
+
+int		check_sharp_helper(char **tab, int i, int j, int k)
+{
+	if (k != 4 && check_left(tab, i + 1, j - 1) == 1)
+		k += 1;
+	if (k != 4 && check_under(tab, i + 1, j - 1) == 1)
+		k += 1;
+	return (k);
+}
 
 int		check_sharp(char **tab, int i, int j, int k)
 {
@@ -34,10 +43,7 @@ int		check_sharp(char **tab, int i, int j, int k)
 		if (k != 4 && check_left(tab, i + 1, j) == 1)
 		{
 			k += 1;
-			if (k != 4 && check_left(tab, i + 1, j - 1) == 1)
-				k += 1;
-			if (k != 4 && check_under(tab, i + 1, j - 1) == 1)
-				k += 1;
+			check_sharp_helper(tab, i, j, k);
 		}
 		return (check_sharp(tab, i + 1, j, k));
 	}
